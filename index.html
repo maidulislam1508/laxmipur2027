@@ -1,0 +1,794 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>১নং লক্ষ্মীপুর ইউনিয়ন পরিষদ নির্বাচন ২০২৭ — লাইভ ফলাফল</title>
+    <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Chart.js লাইব্রেরি -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        :root {
+            --primary: #1e3a8a;       /* রয়েল ব্লু */
+            --primary-dark: #111827;  /* ডিপ নেভি ব্লু */
+            --primary-light: #eff6ff;
+            --gold: #d97706;          /* গোল্ডেন */
+            --gold-bright: #f59e0b;
+            --gold-light: #fef3c7;
+            --white: #ffffff;
+            --text-dark: #1f2937;
+            --text-muted: #6b7280;
+            --border: #dbeafe;
+        }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Hind Siliguri', sans-serif;
+        }
+        body {
+            background-color: #f4f7fb;
+            color: var(--text-dark);
+            line-height: 1.5;
+        }
+
+        /* হেডার */
+        header {
+            background: linear-gradient(135deg, var(--primary-dark), var(--primary));
+            color: var(--white);
+            text-align: center;
+            padding: 25px 15px 30px;
+            border-bottom: 4px solid var(--gold-bright);
+            box-shadow: 0 4px 15px rgba(30, 58, 138, 0.2);
+        }
+        header h1 {
+            font-size: 1.85rem;
+            font-weight: 700;
+            margin-bottom: 5px;
+            color: var(--white);
+        }
+        header p {
+            font-size: 1.05rem;
+            color: #e0e7ff;
+        }
+        .live-badge {
+            display: inline-flex;
+            align-items: center;
+            background: rgba(245, 158, 11, 0.18);
+            border: 1px solid var(--gold-bright);
+            color: #fde68a;
+            padding: 4px 15px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            margin-top: 10px;
+            font-weight: 600;
+        }
+        .live-dot {
+            height: 10px;
+            width: 10px;
+            background-color: var(--gold-bright);
+            border-radius: 50%;
+            display: inline-block;
+            margin-right: 8px;
+            animation: pulse 1.5s infinite;
+        }
+        @keyframes pulse {
+            0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(245, 158, 11, 0.7); }
+            70% { transform: scale(1); box-shadow: 0 0 0 8px rgba(245, 158, 11, 0); }
+            100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(245, 158, 11, 0); }
+        }
+
+        .container {
+            max-width: 1150px;
+            margin: 20px auto;
+            padding: 0 15px;
+        }
+
+        /* টাইটেলের ঠিক নিচে ডেভেলপার ক্রেডিট কার্ড (University of Dhaka সহ) */
+        .developer-card {
+            background: linear-gradient(135deg, var(--primary), #172554);
+            border: 2px solid var(--gold-bright);
+            border-radius: 12px;
+            padding: 15px 25px;
+            max-width: 580px;
+            margin: 0 auto 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 18px;
+            box-shadow: 0 6px 18px rgba(30, 58, 138, 0.18);
+            color: var(--white);
+        }
+        .developer-card img {
+            width: 75px;
+            height: 75px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid var(--gold-bright);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.25);
+        }
+        .dev-info h4 {
+            font-size: 0.78rem;
+            color: #fde68a;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .dev-info h2 {
+            font-size: 1.3rem;
+            color: var(--white);
+            font-weight: 700;
+        }
+        .dev-info p {
+            font-size: 0.85rem;
+            color: #bfdbfe;
+            font-weight: 600;
+            margin-top: 2px;
+        }
+
+        /* ২০২৭ সালের ৪ ফেব্রুয়ারি পর্যন্ত কাউন্টডাউন টাইমার সেকশন */
+        .countdown-wrapper {
+            background: var(--white);
+            border: 2px solid var(--primary);
+            border-top: 5px solid var(--gold-bright);
+            border-radius: 12px;
+            padding: 18px 20px;
+            margin-bottom: 25px;
+            text-align: center;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+        }
+        .countdown-title {
+            color: var(--primary);
+            font-size: 1.15rem;
+            font-weight: 700;
+            margin-bottom: 12px;
+        }
+        .countdown-boxes {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+        .time-box {
+            background: linear-gradient(135deg, var(--primary), #1e40af);
+            color: var(--white);
+            min-width: 78px;
+            padding: 10px 12px;
+            border-radius: 10px;
+            border-bottom: 3px solid var(--gold-bright);
+            box-shadow: 0 3px 8px rgba(30, 58, 138, 0.15);
+        }
+        .time-box span {
+            display: block;
+            font-size: 1.65rem;
+            font-weight: 700;
+            color: #fde68a;
+            line-height: 1.2;
+        }
+        .time-box small {
+            font-size: 0.85rem;
+            color: var(--white);
+            font-weight: 500;
+        }
+
+        /* সামারি কার্ডস */
+         .summary-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+        .stat-card {
+            background: var(--white);
+            padding: 20px;
+            border-radius: 10px;
+            border-top: 4px solid var(--primary);
+            border-bottom: 2px solid var(--gold-bright);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+            text-align: center;
+        }
+        .stat-card h4 {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            margin-bottom: 5px;
+        }
+        .stat-card .value {
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: var(--primary);
+        }
+        .stat-card .sub {
+            font-size: 0.85rem;
+            color: var(--gold);
+            font-weight: 600;
+        }
+
+        /* পাই চার্ট সেকশন */
+        .chart-container-single {
+            background: var(--white);
+            padding: 20px;
+            border-radius: 10px;
+            border-top: 4px solid var(--gold-bright);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+            margin-bottom: 25px;
+            max-width: 600px;
+            margin-left:  auto;
+            margin-right: auto;
+        }
+        .chart-container-single h3 {
+            color: var(--primary);
+            margin-bottom: 15px;
+            font-size: 1.2rem;
+            text-align: center;
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 8px;
+        }
+
+        /* টেবিল সেকশন */
+        .table-section {
+            background: var(--white);
+            padding: 20px;
+            border-radius: 10px;
+            border-top: 4px solid var(--primary);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+            margin-bottom: 30px;
+        }
+        .table-section h3 {
+            color: var(--primary);
+            margin-bottom: 15px;
+            font-size: 1.25rem;
+        }
+        .table-responsive {
+            overflow-x: auto;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 850px;
+        }
+        th, td {
+            padding: 12px 10px;
+            border: 1px solid var(--border);
+            text-align: center;
+            font-size: 0.95rem;
+        }
+        th {
+            background-color: var(--primary);
+            color: var(--white);
+            font-weight: 600;
+            border-bottom: 3px solid var(--gold-bright);
+        }
+        td:first-child, th:first-child {
+            text-align: left;
+            font-weight: 600;
+        }
+        tr:nth-child(even) {
+            background-color: #f8fafc;
+        }
+        tfoot tr {
+            background-color: var(--gold-light) !important;
+            font-weight: 700;
+            font-size: 1.05rem;
+            color: var(--primary-dark);
+        }
+        .status-badge {
+            padding: 3px 10px;
+            border-radius: 12px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+        .status-done { background: #dbeafe; color: #1e3a8a; }
+        .status-pending { background: #fef3c7; color: #92400e; }
+
+        /* অ্যাডমিন বাটন */
+        .admin-trigger {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .btn {
+            background: var(--primary);
+            color: var(--white);
+            border: none;
+            padding: 10px 22px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.95rem;
+            font-weight: 600;
+            transition: 0.2s;
+        }
+        .btn:hover { background: var(--primary-dark); }
+        .btn-outline {
+            background: var(--white);
+            border: 2px solid var(--primary);
+            color: var(--primary);
+        }
+        .btn-outline:hover {
+            background: var(--primary);
+            color: var(--white);
+        }
+
+        /* অ্যাডমিন প্যানেল মডাল */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 2000;
+            left: 0; top: 0;
+            width: 100%; height: 100%;
+            background: rgba(0,0,0,0.65);
+            overflow-y: auto;
+            padding: 20px 10px;
+        }
+        .modal-content {
+            background: var(--white);
+            max-width: 650px;
+            margin: 20px auto;
+            padding: 25px;
+            border-radius: 10px;
+            border-top: 5px solid var(--gold-bright);
+            position: relative;
+        }
+        .close-btn {
+            position: absolute;
+            right: 20px; top: 15px;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--text-muted);
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .form-group label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+        .form-group input, .form-group select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #cbd5e1;
+            border-radius: 6px;
+            font-size: 1rem;
+        }
+        .candidate-inputs {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+
+        @media (max-width: 768px) {
+            .candidate-inputs { grid-template-columns: 1fr; }
+            header h1 { font-size: 1.4rem; }
+            .developer-card { flex-direction: column; text-align: center; }
+            .time-box { min-width: 68px; padding: 8px 10px; }
+            .time-box span { font-size: 1.4rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>১নং লক্ষ্মীপুর ইউনিয়ন পরিষদ নির্বাচন ২০২৭ — লাইভ ফলাফল</h1>
+        <p>চেয়ারম্যান পদপ্রার্থীদের কেন্দ্রভিত্তিক ফলাফল ড্যাশবোর্ড | মোট ভোটার: ২৮,৫৪৯ জন</p>
+        <div class="live-badge"><span class="live-dot"></span> সরাসরি ফলাফল আপডেট হচ্ছে</div>
+    </header>
+
+    <div class="container">
+        <!-- টাইটেলের ঠিক নিচে ডেভেলপার ক্রেডিট কার্ড (Msc in Mathematics সহ) -->
+        <div class="developer-card">
+            <img src="maidul.jpg" alt="Md. Mydul Islam" onerror="this.src='https://via.placeholder.com/75?text=Mydul'">
+            <div class="dev-info">
+                <h4>System Design & Live Dashboard</h4>
+                <h2>Generated By Md. Mydul Islam</h2>
+                <p>MSS in Political Science</p>
+				<p>University Of Dhaka</p>
+            </div>
+        </div>
+
+        <!-- ৪ ফেব্রুয়ারি ২০২৭ কাউন্টডাউন টাইমার -->
+        <div class="countdown-wrapper" id="countdownSection">
+            <div class="countdown-title" id="countdownHeading">⏳ ৪ ফেব্রুয়ারি ২০২৭ ভোটগ্রহণ শুরু হতে বাকি:</div>
+            <div class="countdown-boxes" id="countdownBoxes">
+                <div class="time-box"><span id="cdDays">০০</span><small>দিন</small></div>
+                <div class="time-box"><span id="cdHours">০০</span><small>ঘণ্টা</small></div>
+                <div class="time-box"><span id="cdMinutes">০০</span><small>মিনিট</small></div>
+                <div class="time-box"><span id="cdSeconds">০০</span><small>সেকেন্ড</small></div>
+            </div>
+        </div>
+
+        <!-- সামারি কার্ডস -->
+        <div class="summary-grid">
+            <div class="stat-card">
+                <h4>ফলাফল প্রাপ্ত কেন্দ্র</h4>
+                <div class="value" id="completedCenters">০ / ৯</div>
+                <div class="sub">মোট ভোটকেন্দ্র: ৯ টি</div>
+            </div>
+            <div class="stat-card">
+                <h4>মোট গণনাকৃত বৈধ ভোট</h4>
+                <div class="value" id="totalCastVotes">০</div>
+                <div class="sub" id="votePercentage">মোট ভোটারের ০%</div>
+            </div>
+            <div class="stat-card">
+                <h4>বর্তমান শীর্ষে এগিয়ে</h4>
+                <div class="value" id="leadingCandidate" style="font-size: 1.2rem;">গণনা শুরু হয়নি</div>
+                <div class="sub" id="leadingVotes">প্রাপ্ত ভোট: ০</div>
+            </div>
+			
+        <div class="stat-card">
+                <h4>👁️ মোট ওয়েবসাইট ভিউ</h4>
+                <div class="value" id="totalViews">১</div>
+                <div class="sub">সর্বমোট ভিজিটর সংখ্যা</div>
+            </div>
+         
+		  </div>
+
+        <!-- পাই চার্ট সেকশন -->
+        <div class="chart-container-single">
+            <h3>ভোটের শতকরা হার (পাই চার্ট)</h3>
+            <div style="height: 320px; position: relative;">
+                <canvas id="pieChart"></canvas>
+            </div>
+        </div>
+        <!-- কেন্দ্রভিত্তিক ফলাফল টেবিল -->
+        <div class="table-section">
+            <h3>কেন্দ্রভিত্তিক বিস্তারিত ফলাফল তালিকা</h3>
+            <div class="table-responsive">
+                <table id="resultTable">
+                    <thead>
+                        <tr id="tableHeader"></tr>
+                    </thead>
+                    <tbody id="tableBody"></tbody>
+                    <tfoot id="tableFooter"></tfoot>
+                </table>
+            </div>
+        </div>
+
+        <!-- অ্যাডমিন লগইন বাটন -->
+        <div class="admin-trigger">
+            <button class="btn btn-outline" onclick="openAdminModal()">🔒 অ্যাডমিন প্যানেল (ভোট আপডেট করুন)</button>
+        </div>
+    </div>
+
+    <!-- অ্যাডমিন মডাল -->
+    <div id="adminModal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeAdminModal()">&times;</span>
+            <h2 style="color: var(--primary); margin-bottom: 15px;">অ্যাডমিন কন্ট্রোল প্যানেল</h2>
+
+            <!-- পিন লগইন সেকশন -->
+                        <div id="pinSection">
+                <p style="margin-bottom: 12px; color: #475569;">অ্যাডমিন প্যানেলে প্রবেশ করতে ইমেইল ও পাসওয়ার্ড দিন:</p>
+                <input type="email" id="adminEmail" placeholder="অ্যাডমিন ইমেইল লিখুন" style="width: 100%; padding: 10px; border: 1px solid #cbd5e1; border-radius: 6px; margin-bottom: 10px;">
+                <input type="password" id="adminPassword" placeholder="পাসওয়ার্ড লিখুন" style="width: 100%; padding: 10px; border: 1px solid #cbd5e1; border-radius: 6px; margin-bottom: 12px;">
+                <button onclick="loginAdmin()" style="width: 100%; background: var(--primary); color: white; border: none; padding: 10px; border-radius: 6px; font-weight: bold; cursor: pointer;">লগইন করুন</button>
+            </div>
+
+
+            <!-- ভোট এন্ট্রি ফর্ম -->
+            <div id="dashboardSection" style="display: none;">
+                <div class="form-group">
+                    <label>ভোটকেন্দ্র নির্বাচন করুন:</label>
+                    <select id="centerSelect" onchange="loadCenterData()"></select>
+                </div>
+
+                <div class="candidate-inputs" id="voteInputsContainer"></div>
+
+                <div class="form-group" style="margin-top: 15px;">
+                    <label>কেন্দ্রের ফলাফলের অবস্থা:</label>
+                    <select id="centerStatus">
+                        <option value="অপেক্ষমাণ">অপেক্ষমাণ</option>
+                        <option value="গণনা চলছে">গণনা চলছে</option>
+                        <option value="চূড়ান্ত">চূড়ান্ত</option>
+                    </select>
+                </div>
+
+                <button class="btn" style="width: 100%; margin-top: 10px;" onclick="saveCenterVotes()">✅ ফলাফল সেভ ও লাইভ আপডেট করুন</button>
+
+                <hr style="margin: 25px 0; border: 0; border-top: 1px solid #ddd;">
+
+                <!-- প্রার্থীদের প্রতীক আপডেট সেকশন -->
+                <h4 style="color: var(--primary); margin-bottom: 10px;">প্রার্থীদের প্রতীক ও নাম পরিবর্তন করুন:</h4>
+                <div id="symbolEditContainer"></div>
+                <button class="btn btn-outline" style="width: 100%; margin-top: 10px;" onclick="saveCandidateInfo()">প্রতীক ও নাম আপডেট করুন</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Firebase SDK -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+        import { getDatabase, ref, set, onValue, runTransaction } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js";
+		import { getAuth, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+
+        // আপনার ফায়ারবেস কনফিগারেশন সফলভাবে যুক্ত করা হলো
+        const firebaseConfig = {
+			apiKey: "AIzaSyDiXilFgehOo0V-00lU5g09lqNSwxK7VZY",
+			authDomain: "laxmipur2027.firebaseapp.com",
+			databaseURL: "https://laxmipur2027-default-rtdb.asia-southeast1.firebasedatabase.app",
+			projectId: "laxmipur2027",
+			storageBucket: "laxmipur2027.firebasestorage.app",
+			messagingSenderId: "816184693656",
+			appId: "1:816184693656:web:377d7806143a2fd6cf91ed",
+			measurementId: "G-T0BQJWN8T4"
+		  };
+
+        const app = initializeApp(firebaseConfig);
+        const db = getDatabase(app);
+		const auth = getAuth(app);
+
+        // ডিফল্ট ডেটা
+        const defaultData = {
+            candidates: [
+                { id: "c1", name: "মো: মোস্তাফিজুর রহমান (বাদল)", symbol: "প্রতীক", color: "#1e3a8a" },
+                { id: "c2", name: "আবুল কালাম আযাদ", symbol: "প্রতীক", color: "#d97706" },
+                { id: "c3", name: "মোঃ আমির হোসেন", symbol: "প্রতীক", color: "#059669" },
+                { id: "c4", name: "মোঃ ফাউজুল কবির (ফুল মিয়া)", symbol: "প্রতীক", color: "#dc2626" },
+                { id: "c5", name: "মোঃ মকলেছুর রহমান(মাজু)", symbol: "প্রতীক", color: "#7c3aed" }
+            ],
+            centers: [
+                { id: 1, name: "০১. লক্ষ্মীপুর স্কুল এন্ড কলেজ  (ওয়ার্ড ১)", votes: [0,0,0,0,0], status: "অপেক্ষমাণ" },
+                { id: 2, name: "০২. লক্ষ্মীপুর বালিকা উচ্চ বিদ্যালয় (ওয়ার্ড ২)", votes: [0,0,0,0,0], status: "অপেক্ষমাণ" },
+                { id: 3, name: "০৩. খামার গোবিন্দপুর সরকারি প্রাথমিক বিদ্যালয় (ওয়ার্ড ৩)", votes: [0,0,0,0,0], status: "অপেক্ষমাণ" },
+                { id: 4, name: "০৪. উজির ধরনী বাড়ী সরকারি প্রাথমিক বিদ্যালয় (ওয়ার্ড ৪)", votes: [0,0,0,0,0], status: "অপেক্ষমাণ" },
+                { id: 5, name: "০৫. বালাআটা সরকারি প্রাথমিক বিদ্যালয়(ওয়ার্ড ৫)", votes: [0,0,0,0,0], status: "অপেক্ষমাণ" },
+                { id: 6, name: "০৬. খোর্দ্দমালিবাড়ী সরকারি প্রাথমিক বিদ্যালয় (ওয়ার্ড ৬)", votes: [0,0,0,0,0], status: "অপেক্ষমাণ" },
+                { id: 7, name: "০৭. লেংগা  সরকারি প্রাথমিক বিদ্যালয় (ওয়ার্ড ৭)", votes: [0,0,0,0,0], status: "অপেক্ষমাণ" },
+                { id: 8, name: "০৮. মালিবাড়ী বোরহানীয়া সরকারি প্রাথমিক বিদ্যালয় (ওয়ার্ড ৮)", votes: [0,0,0,0,0], status: "অপেক্ষমাণ" },
+                { id: 9, name: "০৯. মৌজামালিবাড়ী মধ্যপাড়া সরকারি প্রাথমিক বিদ্যালয় (ওয়ার্ড ৯)", votes: [0,0,0,0,0], status: "অপেক্ষমাণ" }              
+            ]
+        };
+
+        let electionData = defaultData;
+        let pieChartInstance = null;
+
+        // বাংলা সংখ্যায় রূপান্তর
+        function toBanglaNumber(num) {
+            const banglaDigits = ['০', '১', '২', '৩', '৪', '৫', '৬', '৭', '৮', '৯'];
+            return num.toString().replace(/\d/g, x => banglaDigits[x]);
+        }
+
+        // ৪ ফেব্রুয়ারি ২০২৭ সকাল ৮:০০ টা পর্যন্ত ফিক্সড কাউন্টডাউন টাইমার
+        function startCountdown() {
+            const electionDate = new Date(2027, 1, 4, 8, 0, 0).getTime(); // 2027, February 4, 08:00 AM
+
+            function updateTimer() {
+                const currentTime = new Date().getTime();
+                const distance = electionDate - currentTime;
+
+                if (distance <= 0) {
+                    document.getElementById("countdownHeading").innerText = "🗳️ ৪ ফেব্রুয়ারি ২০২৭ — ভোটগ্রহণ ও লাইভ ফলাফল চলছে!";
+                    document.getElementById("countdownBoxes").style.display = "none";
+                    return;
+                }
+
+                const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+                document.getElementById("cdDays").innerText = toBanglaNumber(days.toString().padStart(2, '0'));
+                document.getElementById("cdHours").innerText = toBanglaNumber(hours.toString().padStart(2, '0'));
+                document.getElementById("cdMinutes").innerText = toBanglaNumber(minutes.toString().padStart(2, '0'));
+                document.getElementById("cdSeconds").innerText = toBanglaNumber(seconds.toString().padStart(2, '0'));
+            }
+
+            updateTimer();
+            setInterval(updateTimer, 1000);
+        }
+
+        // লাইভ ভিউ কাউন্টার (সেশন লক ছাড়া)
+        function trackPageViews() {
+            const viewsRef = ref(db, 'laxmipur2027_views');
+            runTransaction(viewsRef, (currentViews) => (currentViews || 0) + 1);
+            
+                        onValue(viewsRef, (snapshot) => {
+                const count = snapshot.val() || 1;
+                const viewEl = document.getElementById("totalViews");
+                if (viewEl) viewEl.innerText = toBanglaNumber(count);
+            });
+        }
+
+        function initApp() {
+            startCountdown();
+            trackPageViews();
+
+            const electionRef = ref(db, 'laxmipur2027');
+            onValue(electionRef, (snapshot) => {
+                const data = snapshot.val();
+                if (data) {
+                    electionData = data;
+                    renderAll();
+                } else {
+                    set(electionRef, defaultData);
+                }
+            });
+        }
+
+        function renderAll() {
+            renderTable();
+            updateSummaryAndCharts();
+        }
+
+        function renderTable() {
+            const thead = document.getElementById("tableHeader");
+            const tbody = document.getElementById("tableBody");
+            const tfoot = document.getElementById("tableFooter");
+
+            let headerHTML = `<th>ভোটকেন্দ্রের নম্বর ও নাম</th>`;
+            electionData.candidates.forEach(c => {
+                headerHTML += `<th>${c.name}<br><small style="font-weight:400; color:#fde68a;">(${c.symbol})</small></th>`;
+            });
+            headerHTML += `<th>মোট বৈধ ভোট</th><th>অবস্থা</th>`;
+            thead.innerHTML = headerHTML;
+
+            let bodyHTML = "";
+            let candidateTotals = [0, 0, 0, 0, 0];
+            let grandTotal = 0;
+
+            electionData.centers.forEach(center => {
+                let rowTotal = 0;
+                let rowHTML = `<tr><td>${center.name}</td>`;
+                center.votes.forEach((v, idx) => {
+                    rowHTML += `<td>${toBanglaNumber(v)}</td>`;
+                    candidateTotals[idx] += Number(v);
+                    rowTotal += Number(v);
+                });
+                grandTotal += rowTotal;
+                const badgeClass = center.status === "চূড়ান্ত" ? "status-done" : "status-pending";
+                rowHTML += `<td><strong>${toBanglaNumber(rowTotal)}</strong></td>
+                            <td><span class="status-badge ${badgeClass}">${center.status}</span></td></tr>`;
+                bodyHTML += rowHTML;
+            });
+            tbody.innerHTML = bodyHTML;
+
+            let footHTML = `<tr><td>সর্বমোট প্রাপ্ত ভোট</td>`;
+            candidateTotals.forEach(total => {
+                footHTML += `<td>${toBanglaNumber(total)}</td>`;
+            });
+            footHTML += `<td>${toBanglaNumber(grandTotal)}</td><td>—</td></tr>`;
+            tfoot.innerHTML = footHTML;
+        }
+
+        function updateSummaryAndCharts() {
+            let candidateTotals = [0, 0, 0, 0, 0];
+            let completedCount = 0;
+            let totalVotes = 0;
+
+            electionData.centers.forEach(center => {
+                if (center.status === "চূড়ান্ত") completedCount++;
+                center.votes.forEach((v, idx) => {
+                    candidateTotals[idx] += Number(v);
+                    totalVotes += Number(v);
+                });
+            });
+
+            document.getElementById("completedCenters").innerText = `${toBanglaNumber(completedCount)} / ৯`;
+            document.getElementById("totalCastVotes").innerText = toBanglaNumber(totalVotes);
+            const percent = ((totalVotes / 28549) * 100).toFixed(1);
+            document.getElementById("votePercentage").innerText = `মোট ভোটারের ${toBanglaNumber(percent)}%`;
+
+            let maxVotes = Math.max(...candidateTotals);
+            if (maxVotes > 0) {
+                let leaderIndex = candidateTotals.indexOf(maxVotes);
+                document.getElementById("leadingCandidate").innerText = electionData.candidates[leaderIndex].name;
+                document.getElementById("leadingVotes").innerText = `প্রাপ্ত ভোট: ${toBanglaNumber(maxVotes)}`;
+            } else {
+                document.getElementById("leadingCandidate").innerText = "গণনা শুরু হয়নি";
+                document.getElementById("leadingVotes").innerText = "প্রাপ্ত ভোট: ০";
+            }
+
+            const labels = electionData.candidates.map(c => c.name);
+            const colors = electionData.candidates.map(c => c.color);
+            const chartData = totalVotes > 0 ? candidateTotals : [1, 1, 1, 1, 1];
+
+
+            if (pieChartInstance) {
+                pieChartInstance.data.labels = labels;
+                pieChartInstance.data.datasets[0].data = chartData;
+                pieChartInstance.data.datasets[0].backgroundColor = colors;
+                pieChartInstance.update();
+            } else {
+                const ctxPie = document.getElementById('pieChart').getContext('2d');
+                pieChartInstance = new Chart(ctxPie, {
+                    type: 'pie',
+                    data: {
+                        labels: labels,
+                        datasets: [{
+                            data: chartData,
+                            backgroundColor: colors
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: { legend: { position: 'bottom' } }
+                    }
+                });
+            }
+        }
+
+        // অ্যাডমিন ফাংশনসমূহ
+        window.openAdminModal = function() {
+            document.getElementById("adminModal").style.display = "block";
+        }
+        window.closeAdminModal = function() {
+            document.getElementById("adminModal").style.display = "none";
+        }
+                window.loginAdmin = function() {
+            const email = document.getElementById("adminEmail").value.trim();
+            const password = document.getElementById("adminPassword").value;
+
+            if (!email || !password) {
+                alert("দয়া করে ইমেইল এবং পাসওয়ার্ড দিন!");
+                return;
+            }
+
+            signInWithEmailAndPassword(auth, email, password)
+                .then((userCredential) => {
+                    document.getElementById("pinSection").style.display = "none";
+                    document.getElementById("dashboardSection").style.display = "block";
+                    populateAdminForm();
+                })
+                .catch((error) => {
+                    alert("লগইন ব্যর্থ হয়েছে! সঠিক ইমেইল ও পাসওয়ার্ড দিন।");
+                });
+        }
+
+
+        function populateAdminForm() {
+            const select = document.getElementById("centerSelect");
+            select.innerHTML = electionData.centers.map((c, idx) => `<option value="${idx}">${c.name}</option>`).join("");
+            loadCenterData();
+
+            const symbolContainer = document.getElementById("symbolEditContainer");
+            symbolContainer.innerHTML = electionData.candidates.map((c, idx) => `
+                <div style="display:flex; gap:8px; margin-bottom:8px;">
+                    <input type="text" id="cname_${idx}" value="${c.name}" style="flex:2;">
+                    <input type="text" id="csymbol_${idx}" value="${c.symbol}" placeholder="প্রতীক" style="flex:1;">
+                </div>
+            `).join("");
+        }
+
+        window.loadCenterData = function() {
+            const centerIdx = document.getElementById("centerSelect").value;
+            const center = electionData.centers[centerIdx];
+            const container = document.getElementById("voteInputsContainer");
+
+            container.innerHTML = electionData.candidates.map((c, idx) => `
+                <div class="form-group">
+                    <label>${c.name} (${c.symbol})</label>
+                    <input type="number" id="vote_${idx}" value="${center.votes[idx]}" min="0">
+                </div>
+            `).join("");
+
+            document.getElementById("centerStatus").value = center.status;
+        }
+
+        window.saveCenterVotes = function() {
+            const centerIdx = document.getElementById("centerSelect").value;
+            const newVotes = electionData.candidates.map((_, idx) => Number(document.getElementById(`vote_${idx}`).value) || 0);
+            const newStatus = document.getElementById("centerStatus").value;
+
+            electionData.centers[centerIdx].votes = newVotes;
+            electionData.centers[centerIdx].status = newStatus;
+
+            persistData();
+            alert("ফলাফল সফলভাবে আপডেট হয়েছে!");
+        }
+
+        window.saveCandidateInfo = function() {
+            electionData.candidates.forEach((c, idx) => {
+                c.name = document.getElementById(`cname_${idx}`).value;
+                c.symbol = document.getElementById(`csymbol_${idx}`).value;
+            });
+            persistData();
+            loadCenterData();
+            alert("প্রার্থীদের নাম ও প্রতীক আপডেট হয়েছে!");
+        }
+
+        function persistData() {
+            set(ref(db, 'laxmipur2027'), electionData);
+        }
+
+        initApp();
+    </script>
+</body>
+</html>
